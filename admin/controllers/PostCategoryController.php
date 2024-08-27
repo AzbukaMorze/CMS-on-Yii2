@@ -2,8 +2,8 @@
 
 namespace admin\controllers;
 
-use admin\models\PostCategory;
-use admin\models\PostCategorySearch;
+use common\models\PostCategory;
+use common\models\PostCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -129,6 +129,6 @@ class PostCategoryController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

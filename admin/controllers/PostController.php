@@ -2,11 +2,11 @@
 
 namespace admin\controllers;
 
-use admin\models\Post;
-use admin\models\PostSearch;
+use common\models\Post;
+use common\models\PostSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -129,6 +129,6 @@ class PostController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }
