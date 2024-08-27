@@ -26,7 +26,7 @@ use yii\web\IdentityInterface;
  *
  * @property int              $status
  *
- * @property-read UserExt          $userExt
+ * @property-read UserExt     $userExt
  * @property-read null|string $authKey
  */
 class User extends ActiveRecord implements IdentityInterface
