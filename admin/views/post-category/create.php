@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var admin\models\PostCategory $model */
+/** @var common\models\PostCategory $model */
 
 $this->title = Yii::t('app', 'Create Post Category');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Post Categories'), 'url' => ['index']];

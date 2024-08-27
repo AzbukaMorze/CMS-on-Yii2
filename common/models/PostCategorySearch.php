@@ -1,13 +1,13 @@
 <?php
 
-namespace admin\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use admin\models\PostCategory;
+use common\models\PostCategory;
 
 /**
- * PostCategorySearch represents the model behind the search form of `admin\models\PostCategory`.
+ * PostCategorySearch represents the model behind the search form of `common\models\PostCategory`.
  */
 class PostCategorySearch extends PostCategory
 {

@@ -1,10 +1,9 @@
 <?php
 
-namespace admin\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use admin\models\Post;
 
 /**
  * PostSearch represents the model behind the search form of `admin\models\Post`.

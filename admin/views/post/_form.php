@@ -1,10 +1,11 @@
 <?php
 
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var admin\models\Post $model */
+/** @var \common\models\Post $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -16,7 +17,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true])->label(Yii::t('app', 'Title')) ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(Yii::t('app', 'Text')) ?>
+    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'basic', // или 'full', 'standard' в зависимости от ваших нужд
+            'inline' => false, // режим "inline" по умолчанию false
+        ],
+    ])->label(Yii::t('app', 'Text')) ?>
 
     <?= $form->field($model, 'post_category_id')->textInput()->label(Yii::t('app', 'Post Category ID')) ?>
 

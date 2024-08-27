@@ -1,13 +1,13 @@
 <?php
 
-use admin\models\PostCategory;
+use common\models\PostCategory;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var admin\models\PostCategorySearch $searchModel */
+/** @var common\models\PostCategorySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Post Categories');
@@ -35,9 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, PostCategory $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                }
+                 }
             ],
         ],
     ]); ?>
+
 
 </div>

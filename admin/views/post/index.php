@@ -1,35 +1,28 @@
 <?php
 
-use admin\models\Post;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\models\Post;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use admin\widgets\MenuWidget;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var admin\models\PostSearch $searchModel */
+/** @var \common\models\PostSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Posts';
+$this->title = Yii::t('app', 'Posts');
 $this->params['breadcrumbs'][] = $this->title;
-
-
-
 ?>
-
 <div class="post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     <p>
-        <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Post'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
-    <?php echo MenuWidget::widget(); ?>
 
 
     <?= GridView::widget([
