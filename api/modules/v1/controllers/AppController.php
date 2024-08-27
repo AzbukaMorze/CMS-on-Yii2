@@ -16,7 +16,7 @@ use yii\web\Response;
 use api\components\devInfo\actions\DevInfoAction;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\HttpBearerAuth;
-use app\behaviors\ReturnStatusBehavior;
+use admin\behaviors\ReturnStatusBehavior;
 
 class AppController extends ActiveController
 {

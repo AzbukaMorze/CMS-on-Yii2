@@ -6,7 +6,7 @@
  * Time: 18:35
  */
 
-namespace app\modules\components;
+namespace admin\modules\components;
 
 use Yii;
 use common\components\recaptcha\Recaptcha;

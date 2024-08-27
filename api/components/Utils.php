@@ -6,7 +6,7 @@
  * Time: 12:36
  */
 
-namespace app\modules\components;
+namespace admin\modules\components;
 
 
 class Utils

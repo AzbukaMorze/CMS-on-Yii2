@@ -32,7 +32,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
-    'controllerNamespace' => 'app\controllers',
+    'controllerNamespace' => 'admin\controllers',
     'aliases' => [
         '@images' => '/uploads/global/',
     ],
