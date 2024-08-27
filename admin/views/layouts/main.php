@@ -9,6 +9,7 @@ use admin\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\{Breadcrumbs, Html, Nav, NavBar};
 use kartik\icons\{FontAwesomeAsset, Icon};
+use admin\widgets\menu\MenuWidget; // Подключаем MenuWidget
 
 AppAsset::register($this);
 FontAwesomeAsset::register($this);
@@ -44,7 +45,7 @@ FontAwesomeAsset::register($this);
             ]
         ]
     ]);
-
+    echo MenuWidget::widget();
     $menuItems = [];
 
     if (!Yii::$app->user->isGuest) {
@@ -66,6 +67,7 @@ FontAwesomeAsset::register($this);
             ],
             '<li class="divider-vertical"></li>',
         ];
+
         $menuItems[] = Html::tag(
             'li',
             Html::a(
@@ -78,12 +80,13 @@ FontAwesomeAsset::register($this);
     } else {
         $menuItems[] = ['label' => Icon::show('sign-in-alt') . 'Войти', 'url' => ['/site/login']];
     }
+
     echo Nav::widget([
         'options' => ['class' => 'nav navbar-nav ms-auto d-flex nav-pills justify-content-between'],
         'items' => $menuItems,
     ]);
-    NavBar::end();
 
+    NavBar::end();
     ?>
 
     <div class="container">
@@ -95,9 +98,7 @@ FontAwesomeAsset::register($this);
     </div>
 </div>
 
-
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
-
