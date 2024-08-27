@@ -13,7 +13,7 @@ use common\models\LoginForm;
 
 class LoginFormAdmin extends LoginForm
 {
-    public function validatePassword(string $attribute, array $params)
+    public function validatePassword(string $attribute, array $params): void
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
