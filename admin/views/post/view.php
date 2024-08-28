@@ -33,11 +33,37 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             'title',
             'text:ntext',
-            'post_category_id',
-            'status',
+            [
+                'attribute' => 'post_category_id',
+                'value' => function ($model) {
+                    return $model->getPostCategoryName();
+                },
+                'filter' => \common\models\PostCategory::find()->select(['name', 'id'])->indexBy('id')->column(), // фильтр в виде выпадающего списка
+            ],
+            [
+                'attribute' => 'status',
+                'value' => function($model) {
+                    return \common\models\PostStatus::getStatusText($model->status);
+                },
+                'filter' => \common\models\PostStatus::getStatusList(), // фильтр в виде выпадающего списка
+            ],
             'image',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'created_at',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDatetime($model->created_at, 'php:d.m.Y H:i');
+                },
+                'label' => 'Создано',
+            ],
+            [
+                'attribute' => 'updated_at',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDatetime($model->updated_at, 'php:d.m.Y H:i');
+                },
+                'label' => 'Обновлено',
+            ],
         ],
     ]) ?>
 

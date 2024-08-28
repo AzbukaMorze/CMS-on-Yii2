@@ -25,13 +25,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'post_category_id') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+    <?php  echo $form->field($model, 'status') ?>
 
-    <?php // echo $form->field($model, 'image') ?>
+    <?php  echo $form->field($model, 'image') ?>
 
-    <?php // echo $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'created_at')->textInput([
+        'value' => $model->created_at ? Yii::$app->formatter->asDatetime($model->created_at, 'php:d.m.Y H:i') : '',
+    ])->label(Yii::t('app', 'Created At')) ?>
 
-    <?php // echo $form->field($model, 'updated_at') ?>
+    <?= $form->field($model, 'updated_at')->textInput([
+        'value' => $model->updated_at ? Yii::$app->formatter->asDatetime($model->updated_at, 'php:d.m.Y H:i') : '',
+    ])->label(Yii::t('app', 'Updated At')) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

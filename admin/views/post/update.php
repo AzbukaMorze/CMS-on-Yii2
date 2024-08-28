@@ -1,9 +1,10 @@
 <?php
 
+use common\models\Post;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var \common\models\Post $model */
+/** @var Post $model */
 
 $this->title = Yii::t('app', 'Update Post: {name}', [
     'name' => $model->title,
