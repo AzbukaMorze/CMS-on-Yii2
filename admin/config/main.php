@@ -33,6 +33,7 @@ return [
 
     'aliases' => [
         '@images' => UserUrlManager::UPLOADS,
+        '@webroot' => dirname(__DIR__) . 'htdocs/uploads',
     ],
 
     'bootstrap' => ['log'],
