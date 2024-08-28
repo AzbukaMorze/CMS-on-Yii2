@@ -9,7 +9,7 @@ use admin\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\{Breadcrumbs, Html, Nav, NavBar};
 use kartik\icons\{FontAwesomeAsset, Icon};
-use admin\widgets\menu\MenuWidget; // Подключаем MenuWidget
+use admin\widgets\menu\MenuWidget;
 
 AppAsset::register($this);
 FontAwesomeAsset::register($this);
@@ -45,10 +45,10 @@ FontAwesomeAsset::register($this);
             ]
         ]
     ]);
-    echo MenuWidget::widget();
-    $menuItems = [];
 
+    // Проверка, авторизован ли пользователь
     if (!Yii::$app->user->isGuest) {
+        echo MenuWidget::widget();
         $menuItems = [
             ['label' => 'Пользователи', 'url' => ['/user']],
             [
