@@ -6,7 +6,7 @@
  * Time: 15:11
  */
 
-namespace admin\behaviors;
+namespace api\behaviors;
 
 use Yii;
 use yii\base\Behavior;

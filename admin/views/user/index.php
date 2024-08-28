@@ -55,14 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Email',
                 'value' => static function ($data) {
-                    return $data->userExt->email
+                    return $data->userExt?->email
                         ? '<span style="color:green" title="' . Yii
                             ::t('app', 'Email is confirmed') . '">' . $data->userExt->email . '</span>'
                         : ('<span style="color:red" title="' . Yii
                                 ::t(
                                     'app',
                                     'Email is not confirmed'
-                                ) . '">' . $data->userExt->unconfirmed_email . '</span>');
+                                ) . '">' . $data->userExt?->unconfirmed_email . '</span>');
                 },
                 'format' => 'raw',
             ],

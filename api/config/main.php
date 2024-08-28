@@ -21,7 +21,7 @@ Utils::$ROOT_DOMAIN = $params['rootDomain'] ?? '';
 $current_url = (new Request)->absoluteUrl;
 $htdocs_pos = strpos($current_url, '/htdocs');
 if (!$htdocs_pos) {
-    $htdocs_pos = stripos($current_url, '/admin');
+    $htdocs_pos = stripos($current_url, '/api');
 }
 $baseUrl = substr($current_url, 0, $htdocs_pos);
 $module = '/api';
@@ -32,7 +32,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
-    'controllerNamespace' => 'admin\controllers',
+    'controllerNamespace' => 'api\modules\v1\controllers',
     'aliases' => [
         '@images' => '/uploads/global/',
     ],
@@ -153,22 +153,22 @@ return [
             'dateFormat' => 'php: d/m/Y',
             'datetimeFormat' => 'php: d/m/Y H:i',
         ],
-
-        'urlManager' => [
-            'class' => UserUrlManager::class,
-            'root' => '/htdocs',
-            'hideRoot' => true,
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-
+//        'urlManager' => [
+//            'class' => UserUrlManager::class,
+//            'root' => '/htdocs',
+//            'hideRoot' => true,
+//            'enablePrettyUrl' => false,
+//            'enableStrictParsing' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//
 //                '<_m:[\w-]+>/error' => '<_m>/site/error',                // v1/dev-info
 //                '<_m:[\w-]+>/dev-info' => '<_m>/site/dev-info',                // v1/dev-info
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>' => '<_m>/<_c>/index',                // v1/user/1
 //                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/index',                         // v1/user
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',              // v1/user/login
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
-
+//
 //               ['class' => 'yii\rest\UrlRule',
 //                   'controller' => [
 //                       'v1/user',
@@ -177,6 +177,23 @@ return [
 //                       'v1/rbac'
 //                    ]
 //               ],
+//            ],
+//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/v1/post',
+                    'extraPatterns' => [
+                        'GET, HEAD index' => 'index',
+                        'GET, HEAD view' => 'view',
+                        'POST create' => 'create',
+                        'PUT, PATCH update' => 'update',
+                        'DELETE delete' => 'delete',
+                    ],
+                ],
             ],
         ],
 
