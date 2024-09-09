@@ -2,8 +2,12 @@
 
 namespace common\models;
 
-use admin\models\User;
+use common\models\User;
 use Yii;
+use yii\base\Exception;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "post".
@@ -21,12 +25,14 @@ use Yii;
  * @property PostCategory $postCategory
  * @property User $user
  */
-class Post extends \yii\db\ActiveRecord
+class Post extends ActiveRecord
 {
+    public ?UploadedFile $file = null;
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'post';
     }
@@ -43,13 +49,14 @@ class Post extends \yii\db\ActiveRecord
             [['title', 'image'], 'string', 'max' => 255],
             [['post_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => PostCategory::class, 'targetAttribute' => ['post_category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            ['file', 'file', 'skipOnEmpty' => false, 'extensions' => 'png,jpg,svg']
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -64,23 +71,57 @@ class Post extends \yii\db\ActiveRecord
         ];
     }
 
+    public function beforeValidate(): bool
+    {
+        $this->file = UploadedFile::getInstance($this, 'image');
+        return parent::beforeValidate();
+    }
+
 
     /**
-     * Gets query for [[PostCategory]].
-     *
-     * @return \yii\db\ActiveQuery
+     * @throws Exception
      */
-    public function getPostCategory()
+    public function afterValidate(): void
+    {
+        // Проверяем, что файл загружен
+        if ($this->file instanceof \yii\web\UploadedFile) {
+            // Если у сущности уже есть загруженное изображение, удаляем его
+            if (!empty($this->image)) {
+                $oldFilePath = Yii::getAlias('@root/htdocs/uploads/') . $this->image;
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            // Генерируем новое имя файла
+            $newFileName = Yii::$app->security->generateRandomString() . '.' . $this->file->extension;
+            $newFilePath = Yii::getAlias('@root/htdocs/uploads/') . $newFileName;
+
+            // Сохраняем новый файл
+            if ($this->file->saveAs($newFilePath)) {
+                $this->image = '/uploads/' . $newFileName;
+            } else {
+                $this->addError('image', 'Не удалось сохранить файл.');
+            }
+        }
+
+        parent::afterValidate();
+    }
+
+
+
+    public function getPostCategory(): ActiveQuery
     {
         return $this->hasOne(PostCategory::class, ['id' => 'post_category_id']);
     }
 
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
+    public function getPostCategoryName(): string
+    {
+        return $this->postCategory ? $this->postCategory->name : 'Unknown';
+    }
+
+
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }

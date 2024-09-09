@@ -260,6 +260,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->created_at = $user->updated_at = time();
         $user->auth_key = Yii::$app->security->generateRandomString();
         self::checkEmailIsChanged($user, $params);
+        $user->status = 10;
         $user->last_login_at = time();
 
         if ($user->save()) {

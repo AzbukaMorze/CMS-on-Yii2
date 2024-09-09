@@ -4,11 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Apartment;
 
 /**
- * PostSearch represents the model behind the search form of `admin\models\Post`.
+ * ApartmentSearch represents the model behind the search form of `common\models\Apartment`.
  */
-class PostSearch extends Post
+class ApartmentSearch extends Apartment
 {
     /**
      * {@inheritdoc}
@@ -16,8 +17,9 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id', 'user_id', 'post_category_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'text', 'image'], 'safe'],
+            [['id', 'floor', 'availability'], 'integer'],
+            [['title', 'subtitle', 'description', 'image', 'address', 'additional_title'], 'safe'],
+            [['price'], 'number'],
         ];
     }
 
@@ -39,7 +41,7 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find();
+        $query = Apartment::find();
 
         // add conditions that should always apply here
 
@@ -52,25 +54,23 @@ class PostSearch extends Post
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
-            var_dump($this->errors);
             return $dataProvider;
         }
-        if (\Yii::$app->id === 'app-api') {
-            $this->status = 10;
-        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'post_category_id' => $this->post_category_id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'price' => $this->price,
+            'floor' => $this->floor,
+            'availability' => $this->availability,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'text', $this->text])
-            ->andFilterWhere(['like', 'image', $this->image]);
+            ->andFilterWhere(['like', 'subtitle', $this->subtitle])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'additional_title', $this->additional_title]);
 
         return $dataProvider;
     }

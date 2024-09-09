@@ -8,6 +8,7 @@
 
 namespace api\modules\v1\controllers;
 
+use api\behaviors\ReturnStatusBehavior;
 use Yii;
 use yii\rest\ActiveController;
 use yii\web\Controller;
@@ -16,8 +17,11 @@ use yii\web\Response;
 use api\components\devInfo\actions\DevInfoAction;
 use yii\filters\ContentNegotiator;
 use yii\filters\auth\HttpBearerAuth;
-use admin\behaviors\ReturnStatusBehavior;
 
+/**
+ * @method returnSuccess
+ * @method returnError
+ */
 class AppController extends ActiveController
 {
     public $errors;
